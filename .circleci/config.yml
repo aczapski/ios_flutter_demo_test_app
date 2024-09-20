@@ -15,7 +15,7 @@ jobs:
         brew install --cask flutter
         echo "Install rbrnv"
         brew update && brew upgrade ruby-build
-        rbenv install 3.1.2
+        LDFLAGS="" rbenv install 3.2.1
         echo "Install rosseta"
         softwareupdate --install-rosetta --agree-to-license
         flutter precache
@@ -41,7 +41,7 @@ jobs:
         brew install --cask flutter
         echo "Install rbrnv"
         brew update && brew upgrade ruby-build
-        rbenv install 3.1.2
+        LDFLAGS="" rbenv install 3.2.1
         echo "Install rosseta"
         softwareupdate --install-rosetta --agree-to-license
         flutter precache
