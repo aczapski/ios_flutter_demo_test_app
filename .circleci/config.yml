@@ -13,12 +13,12 @@ jobs:
     - run:
         name: Install dependencies
         command: |
-          cd ios
-          rbenv install 3.1.2
-          brew install --cask flutter
           softwareupdate --install-rosetta --agree-to-license
           flutter precache
           gem install ffi -- --enable-libffi-alloc
+          cd ios
+          rbenv install 3.1.2
+          brew install --cask flutter
           gem install bundler
           bundle install
           bundle update
