@@ -9,7 +9,13 @@ jobs:
       FASTLANE_LANE: test
     steps:
     - checkout
-    - run: cd ios && bundle install
+    - run: |
+        cd ios
+        echo "Install rbrnv"
+        brew install openssl@3 readline libyaml gmp
+        brew update && brew upgrade ruby-build
+        rbenv install 3.1.2
+        bundle install
     - run:
         name: Fastlane
         command: |
@@ -24,7 +30,13 @@ jobs:
       FASTLANE_LANE: adhoc
     steps:
     - checkout
-    - run: cd ios && bundle install
+    - run: |
+        cd ios
+        echo "Install rbrnv"
+        brew install openssl@3 readline libyaml gmp
+        brew update && brew upgrade ruby-build
+        rbenv install 3.1.2
+        bundle install
     - run:
         name: Fastlane
         command: |
