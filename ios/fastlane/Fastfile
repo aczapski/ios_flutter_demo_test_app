@@ -1,0 +1,35 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+default_platform(:ios)
+
+platform :ios do
+  before_all do
+    setup_circle_ci
+  end
+
+  desc "Distribute new debug application to firebase app distribution"
+  lane :distribute_debug do
+    match(type: "adhoc")
+    build_app(
+      scheme: "Runner",
+      configuration: "Debug",
+      export_method: "ad-hoc"
+    )
+    firebase_app_distribution(
+      app: "1:923170042883:ios:4afe1e60a489cbeae70a36"
+    )
+  end
+end
