@@ -13,13 +13,18 @@ jobs:
     - run:
         name: Install dependencies
         command: |
+          cd ios
+          echo "Install flutter"
+          brew install --cask flutter
+          echo "Install rosseta"
           softwareupdate --install-rosetta --agree-to-license
           flutter precache
           gem install ffi -- --enable-libffi-alloc
-          cd ios
+          echo "Install rbrnv"
           rbenv install 3.1.2
-          brew install --cask flutter
+          echo "Install bundler"
           gem install bundler
+          echo "bundle install"
           bundle install
           bundle update
           bundle exec fastlane update_plugins
