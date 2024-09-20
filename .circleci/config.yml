@@ -11,9 +11,15 @@ jobs:
     - checkout
     - run: |
         cd ios
+        echo "Install flutter"
+        brew install --cask flutter
         echo "Install rbrnv"
         brew update && brew upgrade ruby-build
         rbenv install 3.1.2
+        echo "Install rosseta"
+        softwareupdate --install-rosetta --agree-to-license
+        flutter precache
+        gem install ffi -- --enable-libffi-alloc
         bundle install
     - run:
         name: Fastlane
@@ -31,8 +37,15 @@ jobs:
     - checkout
     - run: |
         cd ios
+        echo "Install flutter"
+        brew install --cask flutter
         echo "Install rbrnv"
+        brew update && brew upgrade ruby-build
         rbenv install 3.1.2
+        echo "Install rosseta"
+        softwareupdate --install-rosetta --agree-to-license
+        flutter precache
+        gem install ffi -- --enable-libffi-alloc
         bundle install
     - run:
         name: Fastlane
