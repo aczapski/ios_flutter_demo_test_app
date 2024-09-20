@@ -9,7 +9,7 @@ jobs:
       FASTLANE_LANE: test
     steps:
     - checkout
-    - run: bundle install
+    - run: cd ios && bundle install
     - run:
         name: Fastlane
         command: |
@@ -24,7 +24,7 @@ jobs:
       FASTLANE_LANE: adhoc
     steps:
     - checkout
-    - run: bundle install
+    - run: cd ios && bundle install
     - run:
         name: Fastlane
         command: |
