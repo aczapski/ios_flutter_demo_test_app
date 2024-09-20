@@ -3,7 +3,7 @@ version: 2.1
 executors:
   macos-executor:
     macos:
-      xcode: "15.2.0" # Wybierz odpowiednią wersję Xcode
+      xcode: "15.0.0" # Wybierz odpowiednią wersję Xcode
 
 jobs:
   build:
