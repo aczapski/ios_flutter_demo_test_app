@@ -50,8 +50,7 @@ jobs:
 
   integration_test_ios:
     macos:
-      xcode: 13.3.0
-    resource_class: large
+      xcode: 15.3.0
     steps:
     - checkout
     - macos/preboot-simulator:
@@ -68,8 +67,7 @@ jobs:
 
   distribute_ios:
     macos:
-      xcode: 13.3.0
-    resource_class: large
+      xcode: 15.3.0
     steps:
     - checkout
     - flutter-orb/install_sdk_and_pub:
