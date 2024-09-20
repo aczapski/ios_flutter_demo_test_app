@@ -14,6 +14,7 @@ jobs:
         name: Install dependencies
         command: |
           cd ios
+          brew upgrade ruby-build
           brew install --cask flutter
           gem install bundler
           bundle install
