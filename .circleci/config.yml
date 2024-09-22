@@ -15,16 +15,20 @@ jobs:
         brew install --cask flutter
         echo "Install rbrnv"
         brew update && brew upgrade ruby-build
-        brew uninstall pyenv
         export SDKROOT="$(xcrun -show-sdk-path -sdk macosx)"
         export RUBY_CONFIGURE_OPTS="CC=$(xcrun -f clang)"
+        echo "Install rbrnv v2"
         LDFLAGS="" rbenv install 3.2.1
         rbenv global 3.2.1
+        echo "gem install bunde"
         gem install bundler
         echo "Install rosseta"
         softwareupdate --install-rosetta --agree-to-license
+        echo "flutter percache"
         flutter precache
+        echo "gem install fii"
         gem install ffi -- --enable-libffi-alloc
+        bundle update fastlane
         echo "bundle install"
         bundle install
     - run:
@@ -47,16 +51,20 @@ jobs:
         brew install --cask flutter
         echo "Install rbrnv"
         brew update && brew upgrade ruby-build
-        brew uninstall pyenv
         export SDKROOT="$(xcrun -show-sdk-path -sdk macosx)"
         export RUBY_CONFIGURE_OPTS="CC=$(xcrun -f clang)"
+        echo "Install rbrnv v2"
         LDFLAGS="" rbenv install 3.2.1
         rbenv global 3.2.1
+        echo "gem install bunde"
         gem install bundler
         echo "Install rosseta"
         softwareupdate --install-rosetta --agree-to-license
+        echo "flutter percache"
         flutter precache
+        echo "gem install fii"
         gem install ffi -- --enable-libffi-alloc
+        bundle update fastlane
         echo "bundle install"
         bundle install
     - run:
