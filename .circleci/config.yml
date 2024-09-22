@@ -35,7 +35,7 @@ jobs:
         name: Fastlane
         command: |
           cd ios
-          bundle exec fastlane $FASTLANE_LANE
+          bundle exec fastlane distribute_debug
 
   adhoc:
     macos:
@@ -71,7 +71,7 @@ jobs:
         name: Fastlane
         command: |
           cd ios
-          bundle exec fastlane $FASTLANE_LANE
+          bundle exec fastlane distribute_debug
     - store_artifacts:
         path: output
 
