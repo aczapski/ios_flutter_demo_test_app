@@ -16,7 +16,8 @@ jobs:
         echo "Install rbrnv"
         brew update && brew upgrade ruby-build
         brew uninstall pyenv
-
+        export SDKROOT="$(xcrun -show-sdk-path -sdk macosx)"
+        export RUBY_CONFIGURE_OPTS="CC=$(xcrun -f clang)"
         LDFLAGS="" rbenv install 3.2.1
         echo "Install rosseta"
         softwareupdate --install-rosetta --agree-to-license
@@ -44,7 +45,8 @@ jobs:
         echo "Install rbrnv"
         brew update && brew upgrade ruby-build
         brew uninstall pyenv
-
+        export SDKROOT="$(xcrun -show-sdk-path -sdk macosx)"
+        export RUBY_CONFIGURE_OPTS="CC=$(xcrun -f clang)"
         LDFLAGS="" rbenv install 3.2.1
         echo "Install rosseta"
         softwareupdate --install-rosetta --agree-to-license
