@@ -73,7 +73,9 @@ jobs:
 
   build_android:
     executor:
-      name: cimg/android:2024.09
+      name: android/android-machine
+      resource-class: large
+      tag: 2022.09.1
     steps:
     - flutter/install_sdk_and_pub:
         version: 3.0.3
