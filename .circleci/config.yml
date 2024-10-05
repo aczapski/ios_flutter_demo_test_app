@@ -1,7 +1,8 @@
 version: 2.1
 
 orbs:
-  flutter: circleci/flutter@2.0.4
+  android: circleci/android@1.0.3
+  flutter: circleci/flutter@2.0.0
 
 executors:
   macos-executor:
@@ -71,11 +72,11 @@ jobs:
         path: output
 
   build_android:
-    docker:
-    - image: circleci/android:api-30
+    executor:
+      name: android/android-machine
     steps:
-    - checkout
-    - flutter/install_sdk_and_pub
+    - flutter/install_sdk_and_pub:
+        version: 3.0.3
     - flutter/install_android_gradle_dependencies
     - flutter/install_android_gem
     - run:
@@ -103,11 +104,4 @@ jobs:
 workflows:
   build-test-adhoc:
     jobs:
-    - build-and-test
-    - adhoc:
-        filters:
-          branches:
-            only: development
-        requires:
-        - build-and-test
     - build_android
