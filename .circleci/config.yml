@@ -27,23 +27,6 @@ jobs:
     - flutter/install_android_gradle_dependencies
     - flutter/install_android_gem
     - run:
-        name: Set up environment
-        command: |
-          echo 'export ANDROID_HOME=/opt/android/sdk' >> $BASH_ENV
-          echo 'export PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools' >> $BASH_ENV
-          source $BASH_ENV
-          sdkmanager "platform-tools" "platforms;android-30"
-    - run:
-        name: Prepare Flutter
-        command: |
-          flutter channel stable
-          flutter clean
-          flutter upgrade packages
-          flutter upgrade
-          flutter pub outdated
-          flutter doctor -v
-          flutter pub get
-    - run:
         name: Build Android APK
         command: flutter build apk --release
 
