@@ -20,7 +20,6 @@ jobs:
     executor:
       name: android/android-machine
       resource-class: large
-      tag: 2022.09.1
     steps:
     - flutter/install_sdk_and_pub:
         version: 3.0.3
@@ -49,6 +48,7 @@ jobs:
 
 
 workflows:
-  build-test-adhoc:
+  version: 2
+  build_and_test:
     jobs:
     - build_android
