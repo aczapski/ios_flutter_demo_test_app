@@ -1,9 +1,23 @@
 version: 2.1
 
+orbs:
+  flutter: circleci/flutter@2.0.4
+
+executors:
+  macos-executor:
+    macos:
+      xcode: "15.2.0" # Wybierz odpowiednią wersję Xcode
+
+  android-executor:
+    docker:
+    - image: cimg/android:2024.09
+    environment:
+      ANDROID_HOME: /opt/android/sdk
+
 jobs:
   build-and-test:
     macos:
-      xcode: 16.0.0
+      xcode: 15.2.0
     environment:
       FL_OUTPUT_DIR: output
       FASTLANE_LANE: test
@@ -31,6 +45,8 @@ jobs:
         bundle update fastlane
         echo "bundle install"
         bundle install
+        echo "ruby install"
+        ruby-install 3.3.3 — —enable-shared
     - run:
         name: Fastlane
         command: |
@@ -45,28 +61,7 @@ jobs:
       FASTLANE_LANE: adhoc
     steps:
     - checkout
-    - run: |
-        cd ios
-        echo "Install flutter"
-        brew install --cask flutter
-        echo "Install rbrnv"
-        brew update && brew upgrade ruby-build
-        export SDKROOT="$(xcrun -show-sdk-path -sdk macosx)"
-        export RUBY_CONFIGURE_OPTS="CC=$(xcrun -f clang)"
-        echo "Install rbrnv v2"
-        LDFLAGS="" rbenv install 3.2.1
-        rbenv global 3.2.1
-        echo "gem install bunde"
-        gem install bundler
-        echo "Install rosseta"
-        softwareupdate --install-rosetta --agree-to-license
-        echo "flutter percache"
-        flutter precache
-        echo "gem install fii"
-        gem install ffi -- --enable-libffi-alloc
-        bundle update fastlane
-        echo "bundle install"
-        bundle install
+    - run: "cd ios\necho \"Install flutter\"\nbrew install --cask flutter\necho \"Install rbrnv\"\nbrew update && brew upgrade ruby-build\nexport SDKROOT=\"$(xcrun -show-sdk-path -sdk macosx)\"\nexport RUBY_CONFIGURE_OPTS=\"CC=$(xcrun -f clang)\"\necho \"Install rbrnv v2\"\nLDFLAGS=\"\" rbenv install 3.2.1\nrbenv global 3.2.1\necho \"gem install bunde\"\ngem install bundler\ngem isntall \necho \"Install rosseta\"\nsoftwareupdate --install-rosetta --agree-to-license\necho \"flutter percache\"\nflutter precache\necho \"gem install fii\"\ngem install ffi -- --enable-libffi-alloc\nbundle update fastlane\necho \"bundle install\"\nbundle install\n"
     - run:
         name: Fastlane
         command: |
@@ -74,6 +69,36 @@ jobs:
           bundle exec fastlane distribute_debug
     - store_artifacts:
         path: output
+
+  build_android:
+    docker:
+    - image: circleci/android:api-30
+    steps:
+    - checkout
+    - flutter/install_sdk_and_pub
+    - flutter/install_android_gradle_dependencies
+    - flutter/install_android_gem
+    - run:
+        name: Set up environment
+        command: |
+          echo 'export ANDROID_HOME=/opt/android/sdk' >> $BASH_ENV
+          echo 'export PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools' >> $BASH_ENV
+          source $BASH_ENV
+          sdkmanager "platform-tools" "platforms;android-30"
+    - run:
+        name: Prepare Flutter
+        command: |
+          flutter channel stable
+          flutter clean
+          flutter upgrade packages
+          flutter upgrade
+          flutter pub outdated
+          flutter doctor -v
+          flutter pub get
+    - run:
+        name: Build Android APK
+        command: flutter build apk --release
+
 
 workflows:
   build-test-adhoc:
@@ -85,3 +110,4 @@ workflows:
             only: development
         requires:
         - build-and-test
+    - build_android
