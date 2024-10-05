@@ -16,61 +16,6 @@ executors:
       ANDROID_HOME: /opt/android/sdk
 
 jobs:
-  build-and-test:
-    macos:
-      xcode: 15.2.0
-    environment:
-      FL_OUTPUT_DIR: output
-      FASTLANE_LANE: test
-    steps:
-    - checkout
-    - run: |
-        cd ios
-        echo "Install flutter"
-        brew install --cask flutter
-        echo "Install rbrnv"
-        brew update && brew upgrade ruby-build
-        export SDKROOT="$(xcrun -show-sdk-path -sdk macosx)"
-        export RUBY_CONFIGURE_OPTS="CC=$(xcrun -f clang)"
-        echo "Install rbrnv v2"
-        LDFLAGS="" rbenv install 3.2.1
-        rbenv global 3.2.1
-        echo "gem install bunde"
-        gem install bundler
-        echo "Install rosseta"
-        softwareupdate --install-rosetta --agree-to-license
-        echo "flutter percache"
-        flutter precache
-        echo "gem install fii"
-        gem install ffi -- --enable-libffi-alloc
-        bundle update fastlane
-        echo "bundle install"
-        bundle install
-        echo "ruby install"
-        ruby-install 3.3.3 — —enable-shared
-    - run:
-        name: Fastlane
-        command: |
-          cd ios
-          bundle exec fastlane distribute_debug
-
-  adhoc:
-    macos:
-      xcode: 14.2.0
-    environment:
-      FL_OUTPUT_DIR: output
-      FASTLANE_LANE: adhoc
-    steps:
-    - checkout
-    - run: "cd ios\necho \"Install flutter\"\nbrew install --cask flutter\necho \"Install rbrnv\"\nbrew update && brew upgrade ruby-build\nexport SDKROOT=\"$(xcrun -show-sdk-path -sdk macosx)\"\nexport RUBY_CONFIGURE_OPTS=\"CC=$(xcrun -f clang)\"\necho \"Install rbrnv v2\"\nLDFLAGS=\"\" rbenv install 3.2.1\nrbenv global 3.2.1\necho \"gem install bunde\"\ngem install bundler\ngem isntall \necho \"Install rosseta\"\nsoftwareupdate --install-rosetta --agree-to-license\necho \"flutter percache\"\nflutter precache\necho \"gem install fii\"\ngem install ffi -- --enable-libffi-alloc\nbundle update fastlane\necho \"bundle install\"\nbundle install\n"
-    - run:
-        name: Fastlane
-        command: |
-          cd ios
-          bundle exec fastlane distribute_debug
-    - store_artifacts:
-        path: output
-
   build_android:
     executor:
       name: android/android-machine
