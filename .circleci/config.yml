@@ -22,6 +22,7 @@ jobs:
       resource_class: large
       tag: default
     steps:
+    - checkout
     - flutter/install_sdk_and_pub:
         version: 3.0.3
     - flutter/install_android_gradle_dependencies
