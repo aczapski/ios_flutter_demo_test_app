@@ -25,7 +25,6 @@ jobs:
     - checkout
     - flutter/install_sdk_and_pub:
         version: 3.0.3
-    - flutter/install_android_gem
     - run:
         name: Build Android APK
         command: flutter build apk --release
