@@ -26,6 +26,9 @@ jobs:
     - flutter/install_sdk_and_pub:
         version: 3.0.3
     - run:
+        name: Build Flutter app
+        command: "dart run build_runner build --delete-conflicting-outputs   \n"
+    - run:
         name: Build Android APK
         command: |
           cd android
