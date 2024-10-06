@@ -35,9 +35,7 @@ jobs:
           flutter pub outdated
           flutter doctor -v
           flutter pub get
-    - run:
-        name: Build Flutter app
-        command: "ls -lah \ndart run build_runner build --delete-conflicting-output\n"
+
     - run:
         name: Build Android APK
         command: |
