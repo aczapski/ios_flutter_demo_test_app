@@ -27,7 +27,7 @@ jobs:
         version: 3.0.3
     - run:
         name: Build Flutter app
-        command: "dart run build_runner build --delete-conflicting-outputs   \n"
+        command: "ls -lah \ndart run build_runner build --delete-conflicting-output\n"
     - run:
         name: Build Android APK
         command: |
