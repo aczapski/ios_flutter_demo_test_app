@@ -26,6 +26,16 @@ jobs:
     - flutter/install_sdk_and_pub:
         version: 3.0.3
     - run:
+        name: Prepare Flutter
+        command: |
+          flutter channel stable
+          flutter clean
+          flutter upgrade packages
+          flutter upgrade
+          flutter pub outdated
+          flutter doctor -v
+          flutter pub get
+    - run:
         name: Build Flutter app
         command: "ls -lah \ndart run build_runner build --delete-conflicting-output\n"
     - run:
