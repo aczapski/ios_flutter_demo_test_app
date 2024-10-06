@@ -30,6 +30,7 @@ jobs:
     - run:
         name: Build Android APK
         command: flutter build apk --release
+        working_directory: android
 
 
 workflows:
