@@ -56,17 +56,10 @@ jobs:
           flutter upgrade
           flutter pub outdated
           flutter doctor -v
-          dart pub get
-          dart run build_runner build
           flutter pub get
     - run:
-        name: build dart app
-        command: |
-          ls -lah
-          dart run build_runner build --delete-conflicting-outputs
-    - run:
         name: Build Android APK
-        command: flutter build apk --release
+        command: flutter build apk -t lib/main.dart
 
 workflows:
   version: 2
