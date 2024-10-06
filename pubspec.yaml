@@ -30,13 +30,19 @@ dependencies:
   cupertino_icons: ^1.0.2
   device_info: ^2.0.2
 
+
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_driver:
     sdk: flutter
-  test: any
   build_runner: ^2.4.11
+  chopper_generator: ^8.0.0
+  json_serializable: ^6.8.0
+  drift_dev: ^2.18.0
+  flutter_lints: ^4.0.0
+  analyzer: any
   # ozzie:
   #   git:
   #     url: https://github.com/tadashi0713/ozzie.flutter.git
@@ -51,7 +57,7 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
-
+  generate: true
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg
