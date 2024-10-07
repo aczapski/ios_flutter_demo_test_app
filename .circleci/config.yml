@@ -39,10 +39,12 @@ jobs:
         version: 3.24.3
     - ruby/install:
         version: '3.2.0'
-    - ruby/install-deps
     - run:
         name: Prepare Flutter
         command: |
+          apt install openssl
+          gem list
+          gem install openssl
           gem install fastlane
           gem list
           flutter channel stable
