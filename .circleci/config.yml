@@ -37,11 +37,6 @@ jobs:
     - flutter/install_sdk_and_pub:
         version: 3.24.3
     - run:
-        name: Install dependencies
-        command: |
-          flutter doctor --android-licenses
-          flutter doctor
-    - run:
         name: Prepare Flutter
         command: |
           flutter channel stable
@@ -51,8 +46,6 @@ jobs:
           flutter pub outdated
           flutter doctor -v
           flutter pub get
-          cd android
-          ./gradlew -v
     - run:
         name: Build Android APK
         command: |
