@@ -30,10 +30,8 @@ jobs:
         command: flutter build ipa --no-codesign -t lib/main.dart
 
   build_android:
-    executor:
-      name: android/android_machine
-      resource_class: large
-      tag: default
+    docker:
+    - image: cimg/android:2024.10
     steps:
     - checkout
     - flutter/install_sdk_and_pub:
