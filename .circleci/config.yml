@@ -46,8 +46,9 @@ jobs:
     - run:
         name: Prepare Flutter
         command: |
-          gem source -r https://rubygems.org/
-          gem source -a http://rubygems.org/
+          rvm reinstall all --force
+          yes | gem source -r https://rubygems.org/
+          yes | gem source -a http://rubygems.org/
           gem list
           gem update
           gem install openssl
