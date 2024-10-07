@@ -1,5 +1,9 @@
 version: 2.1
 
+orbs:
+  android: circleci/android@3.0.0
+  flutter: circleci/flutter@2.0.4
+
 executors:
   macos-executor:
     macos:
@@ -7,41 +11,20 @@ executors:
 
   android-executor:
     docker:
-    - image: instrumentisto/flutter:latest
-
-environment:
-  ANDROID_HOME: /opt/android/sdk
+    - image: cimg/android:2024.09
+    environment:
+      ANDROID_HOME: /opt/android/sdk
 
 jobs:
-  build_ios:
-    executor: macos-executor
-    steps:
-    - checkout
-    - run:
-        name: Prepare systems
-        command: |
-          brew install --cask flutter
-          softwareupdate --install-rosetta --agree-to-license
-          flutter precache
-          gem install ffi -- --enable-libffi-alloc
-    - run:
-        name: Prepare Flutter
-        command: |
-          flutter pub get
-    - run:
-        name: Build iOS IPA
-        command: flutter build ipa --no-codesign -t lib/main.dart
-
   build_android:
-    executor: android-executor
+    executor:
+      name: android/android_machine
+      resource_class: large
+      tag: default
     steps:
     - checkout
-    - run:
-        name: Set up environment
-        command: |
-          echo 'export ANDROID_HOME=/opt/android/sdk' >> $BASH_ENV
-          echo 'export PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools' >> $BASH_ENV
-          source $BASH_ENV
+    - flutter/install_sdk_and_pub:
+        version: 3.0.3
     - run:
         name: Install dependencies
         command: |
@@ -59,11 +42,11 @@ jobs:
           flutter pub get
     - run:
         name: Build Android APK
-        command: flutter build apk -t lib/main.dart
-
+        command: |
+          flutter build apk -t lib/main.dart
 workflows:
   version: 2
   build_and_test:
     jobs:
-    - build_ios
     - build_android
+
