@@ -42,11 +42,8 @@ jobs:
     - run:
         name: Prepare Flutter
         command: |
-          echo "install fastalne""
           gem install fastlane
-          echo "install android dependencies"
           gem list
-          echo "flutter"
           flutter channel stable
           flutter clean
           flutter upgrade packages
