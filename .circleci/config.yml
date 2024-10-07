@@ -47,9 +47,6 @@ jobs:
         name: Prepare Flutter
         command: |
           rvm reinstall all --force
-          gem list
-          gem update
-          gem install openssl
           gem install fastlane
           gem list
           flutter channel stable
