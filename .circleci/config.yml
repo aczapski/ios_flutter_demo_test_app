@@ -46,8 +46,10 @@ jobs:
     - run:
         name: Prepare Flutter
         command: |
-          sudo apt install openssl
+          gem source -r https://rubygems.org/
+          gem source -a http://rubygems.org/
           gem list
+          gem update
           gem install openssl
           gem install fastlane
           gem list
