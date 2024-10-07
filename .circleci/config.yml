@@ -35,6 +35,10 @@ jobs:
     - image: cimg/android:2024.10
     steps:
     - checkout
+    - run:
+        name: Install openssl
+        command: |
+          sudo apt install openssl
     - flutter/install_sdk_and_pub:
         version: 3.24.3
     - ruby/install:
@@ -42,7 +46,7 @@ jobs:
     - run:
         name: Prepare Flutter
         command: |
-          apt install openssl
+          sudo apt install openssl
           gem list
           gem install openssl
           gem install fastlane
